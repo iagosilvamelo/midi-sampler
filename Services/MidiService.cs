@@ -10,7 +10,6 @@ namespace MidiSampler.Services;
 public class MidiService
 {
     public event EventHandler<Models.MidiMessage>? MidiMessageReceived;
-    public event EventHandler<string>? LogMessage;
     
     private List<MidiInCapabilities> _midiInputCapabilities = new();
     private MidiIn? _openedInput;
@@ -58,7 +57,6 @@ public class MidiService
             try
             {
                 var midiIn = new MidiIn(deviceIndex);
-                midiIn.ErrorReceived += (s, e) => LogMessage?.Invoke(this, $"MIDI Error: {e.RawMessage}");
                 midiIn.MessageReceived += (sender, args) =>
                 {
                     OnMidiMessageReceived(args);
@@ -96,8 +94,6 @@ public class MidiService
     
     private void OnMidiMessageReceived(MidiInMessageEventArgs args)
     {
-        LogMessage?.Invoke(this, $"Debug(MidiService): Raw={args.RawMessage:X}");
-        
         int status = (int)(args.RawMessage & 0xFF);
         
         // Filter for Control Change (0xB0-0xBF) OR Note-On (0x90-0x9F)
@@ -112,14 +108,6 @@ public class MidiService
                 var message = new Models.MidiMessage { Status = (byte)status, Data1 = (byte)data1, Data2 = (byte)data2 };
                 MidiMessageReceived?.Invoke(this, message);
             }
-            else
-            {
-                LogMessage?.Invoke(this, $"Debug(MidiService): Ignored (Value/Vel=0)");
-            }
-        }
-        else
-        {
-            LogMessage?.Invoke(this, $"Debug(MidiService): Not a NoteOn or CC message (Status={status:X})");
         }
     }
 

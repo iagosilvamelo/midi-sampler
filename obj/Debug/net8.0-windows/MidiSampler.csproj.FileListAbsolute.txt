@@ -3,8 +3,6 @@ D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\MainWindow.baml
 D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\MainWindow.g.cs
 D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\App.g.cs
 D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\MidiSampler_MarkupCompile.cache
-D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\PadEditorWindow.baml
-D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\PadEditorWindow.g.cs
 D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\MidiSampler.g.resources
 D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\MidiSampler.GeneratedMSBuildEditorConfig.editorconfig
 D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\MidiSampler.AssemblyInfoInputs.cache
@@ -31,4 +29,4 @@ D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\refint\MidiSampler
 D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\MidiSampler.pdb
 D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\MidiSampler.genruntimeconfig.cache
 D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\ref\MidiSampler.dll
-D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\MidiSampler_MarkupCompile.lref
+D:\Projetos\Code\midi-sampler-csharp\obj\Debug\net8.0-windows\MidiSampler.sourcelink.json

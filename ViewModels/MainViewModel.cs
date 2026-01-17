@@ -58,20 +58,9 @@ public partial class MainViewModel : ObservableObject
             StatusMessage = $"✓ {mappings.Count} mapeamentos carregados";
 
             // Listar MIDI inputs
-            var midiInputList = _midiService.GetAvailableMidiInputs();
-            foreach (var input in midiInputList)
-            {
-                MidiInputs.Add(input);
-            }
-
-            if (MidiInputs.Count > 0)
-            {
-                SelectedMidiInput = MidiInputs[0];
-            }
+            RefreshMidiInputs();
 
             _midiService.MidiMessageReceived += OnMidiMessageReceived;
-            _midiService.LogMessage += (s, msg) => StatusMessage = msg;
-
 
             // Listar dispositivos de áudio
             var audioDeviceList = _audioService.GetAudioDevices();
@@ -93,6 +82,23 @@ public partial class MainViewModel : ObservableObject
             StatusMessage = $"❌ Erro: {ex.Message}";
             Debug.WriteLine($"❌ {ex}");
         }
+    }
+
+    [RelayCommand]
+    private void RefreshMidiInputs()
+    {
+        MidiInputs.Clear();
+        var midiInputList = _midiService.GetAvailableMidiInputs();
+        foreach (var input in midiInputList)
+        {
+            MidiInputs.Add(input);
+        }
+
+        if (MidiInputs.Count > 0)
+        {
+            SelectedMidiInput = MidiInputs[0];
+        }
+        StatusMessage = $"✓ Lista de dispositivos MIDI atualizada ({MidiInputs.Count} encontrados).";
     }
 
     partial void OnSelectedMidiInputChanged(string? value)
@@ -156,13 +162,6 @@ public partial class MainViewModel : ObservableObject
             }
         }
     }
-
-    [RelayCommand]
-    public void OpenPadEditor()
-    {
-        var editor = new PadEditorWindow(this);
-        editor.Show();
-    }
     
     [RelayCommand]
     public void StartLearningMidiNote(PadMapping padMapping)
@@ -183,7 +182,7 @@ public partial class MainViewModel : ObservableObject
         var newPad = new PadMapping { Note = -1, AudioPath = "Nenhum áudio selecionado" };
         PadMappings.Add(newPad);
         _storageService.SaveMappings(new(PadMappings));
-        StatusMessage = "✓ Novo pad adicionado. Configure-o na janela de edição.";
+        StatusMessage = "✓ Novo pad adicionado.";
     }
 
     [RelayCommand]

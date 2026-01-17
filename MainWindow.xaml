@@ -16,6 +16,16 @@
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Height" Value="32"/>
         </Style>
+        <Style x:Key="LearnMidiButtonStyle" TargetType="Button">
+            <Setter Property="Content" Value="Aprender MIDI"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsLearning}" Value="True">
+                    <Setter Property="Content" Value="Ouvindo..."/>
+                    <Setter Property="Background" Value="#C62828"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -52,14 +62,17 @@
                 <!-- MIDI Input Selection -->
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                     <TextBlock Text="Entrada MIDI:" FontWeight="Bold" Margin="0,0,0,8"/>
-                    <ComboBox ItemsSource="{Binding MidiInputs}" 
-                              SelectedItem="{Binding SelectedMidiInput}"/>
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right" Command="{Binding RefreshMidiInputsCommand}" Content="🔄" Padding="10,5" Margin="5,0,0,0"/>
+                        <ComboBox ItemsSource="{Binding MidiInputs}" 
+                                  SelectedItem="{Binding SelectedMidiInput}"/>
+                    </DockPanel>
                 </StackPanel>
 
-                <!-- Editor Button -->
+                <!-- Add Pad Button -->
                 <Button Grid.Column="2"
-                        Command="{Binding OpenPadEditorCommand}"
-                        Content="⚙️ Gerenciar Pads"
+                        Command="{Binding AddPadMappingCommand}"
+                        Content="➕ Adicionar Pad"
                         VerticalAlignment="Center"
                         Margin="10,0,0,0"/>
             </Grid>
@@ -67,40 +80,42 @@
 
         <!-- Pad Mappings List -->
         <Border Grid.Row="2" Background="White" Margin="20" CornerRadius="4" BorderBrush="#E0E0E0" BorderThickness="1">
-            <ScrollViewer>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding PadMappings}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
-                                <Grid Margin="15">
+                            <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="15">
+                                <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="60"/>
                                         <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
                                     <!-- Note Number -->
                                     <StackPanel Grid.Column="0" VerticalAlignment="Center">
                                         <TextBlock Text="Nota" FontSize="11" Foreground="#666"/>
-                                        <TextBlock Text="{Binding Note}" FontSize="18" FontWeight="Bold" Foreground="#007ACC"/>
+                                        <TextBlock Text="{Binding Note}" FontSize="24" FontWeight="Bold" Foreground="#007ACC"/>
                                     </StackPanel>
 
-                                    <!-- Audio File Path -->
-                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="20,0,0,0">
-                                        <TextBlock Text="{Binding AudioPath}" TextTrimming="CharacterEllipsis" 
-                                                   FontSize="12" Foreground="#333"/>
+                                    <!-- Audio File Path & Actions -->
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="20,0">
+                                        <TextBlock Text="Arquivo de Áudio" FontSize="11" Foreground="#666"/>
+                                        <TextBlock Text="{Binding AudioPath}" TextTrimming="CharacterEllipsis" ToolTip="{Binding AudioPath}"
+                                                   FontSize="12" Foreground="#333" Margin="0,2,0,8"/>
+                                        <Button Content="Selecionar Áudio" Click="SelectAudio_Click" HorizontalAlignment="Left"/>
                                     </StackPanel>
-
-                                    <!-- Remove Button -->
-                                    <Button Grid.Column="2" 
-                                            Command="{Binding DataContext.RemovePadMappingCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                            CommandParameter="{Binding Note}"
-                                            Content="Remover" 
-                                            Background="#D32F2F"
-                                            Foreground="White"
-                                            Margin="0"
-                                            FontSize="11"
-                                            HorizontalAlignment="Right"/>
+                                    
+                                    <!-- MIDI & Pad Actions -->
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Button Style="{StaticResource LearnMidiButtonStyle}" Click="LearnMidi_Click" Margin="5"/>
+                                        <Button Command="{Binding DataContext.RemovePadMappingCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding Note}"
+                                                Content="Remover" 
+                                                Background="#D32F2F"
+                                                Foreground="White"
+                                                Margin="5"/>
+                                    </StackPanel>
                                 </Grid>
                             </Border>
                         </DataTemplate>
