@@ -20,8 +20,48 @@
     "IsLearning": false
   },
   {
-    "Note": 53,
+    "Note": 110,
     "AudioPath": "D:\\MIDI Config\\Audios\\seu-madruga-nossa-lento-47.mp3",
+    "IsLearning": false
+  },
+  {
+    "Note": 53,
+    "AudioPath": "D:\\MIDI Config\\Audios\\rayssa rayana.mp3",
+    "IsLearning": false
+  },
+  {
+    "Note": 37,
+    "AudioPath": "D:\\MIDI Config\\Audios\\chaves_-_ai_que_burro_d_zero_p_1.mp3",
+    "IsLearning": false
+  },
+  {
+    "Note": 29,
+    "AudioPath": "D:\\MIDI Config\\Audios\\sai-de-baixoo-chaves.mp3",
+    "IsLearning": false
+  },
+  {
+    "Note": 54,
+    "AudioPath": "D:\\MIDI Config\\Audios\\suspense violinos.mp3",
+    "IsLearning": false
+  },
+  {
+    "Note": 51,
+    "AudioPath": "D:\\MIDI Config\\Audios\\discord-notification.mp3",
+    "IsLearning": false
+  },
+  {
+    "Note": 113,
+    "AudioPath": "D:\\MIDI Config\\Audios\\discord-call-sound.mp3",
+    "IsLearning": false
+  },
+  {
+    "Note": 111,
+    "AudioPath": "D:\\MIDI Config\\Audios\\ms-teams-notification.mp3",
+    "IsLearning": false
+  },
+  {
+    "Note": 112,
+    "AudioPath": "D:\\MIDI Config\\Audios\\chamada teams.mp3",
     "IsLearning": false
   }
 ]
