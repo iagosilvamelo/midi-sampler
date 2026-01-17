@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MidiSampler")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1f38e8181add97e414071daafad3f16dfcc7e114")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d79b7f00f42701f5accbc926b5b1fb18700c40d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("MidiSampler")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MidiSampler")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

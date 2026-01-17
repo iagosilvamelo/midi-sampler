@@ -20,7 +20,7 @@ public partial class PadMapping : ObservableObject
 
 public class AudioDevice
 {
-    public int Index { get; set; }
+    public string Id { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     
     public override string ToString() => Name;

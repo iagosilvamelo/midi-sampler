@@ -1,147 +1,100 @@
 # MIDI Sampler - C# / .NET WPF
 
-Uma aplicação desktop em C# com WPF para mapeamento e reprodução de áudio via MIDI com suporte completo a seleção de dispositivos de áudio no Windows.
+Uma aplicação desktop moderna em C# com WPF para mapeamento e reprodução de áudio via MIDI, com suporte flexível a dispositivos e roteamento de áudio.
 
 ## 🎯 Recursos
 
-✅ **MIDI Input Real** - Suporte completo a múltiplas portas MIDI  
-✅ **Audio Device Selection** - Selecione o dispositivo de áudio desejado (Voicemeeter, etc)  
-✅ **NAudio Integration** - Reprodução com suporte nativo a dispositivos Windows  
-✅ **Persistent Mappings** - Salva mapeamento de notas em JSON  
-✅ **WPF UI** - Interface moderna e responsiva  
+✅ **Seleção de Dispositivo MIDI** - Escolha e troque de dispositivo MIDI em tempo real com um botão para atualizar a lista.  
+✅ **Suporte a Note-On e Control Change (CC)** - Compatível com teclados, baterias eletrônicas e controladores que enviam mensagens CC.  
+✅ **Seleção de Dispositivo de Áudio (WASAPI)** - Utiliza a API moderna do Windows (WASAPI) para listar e selecionar dispositivos de saída, garantindo compatibilidade com interfaces de áudio e roteadores virtuais como Voicemeeter.  
+✅ **Edição Direta na Interface** - Adicione, configure e remova pads diretamente na tela principal.  
+✅ **Mapeamento Persistente** - Salva todos os seus mapeamentos de pads em um arquivo `mappings.json`.  
+✅ **UI com WPF** - Interface de usuário limpa e intuitiva construída com WPF.  
 
 ## 📋 Requisitos
 
 - .NET 8.0 SDK (ou superior)
-- Windows 7+ (com suporte WASAPI)
-- Visual Studio 2022 ou VS Code
+- Windows 7+ (com suporte a WASAPI)
 
-## 🚀 Instalação
+## 🚀 Como Executar
 
-### 1. Instalar .NET 8 SDK
-```powershell
-# Download e instale de: https://dotnet.microsoft.com/download/dotnet/8.0
-# Ou via chocolatey:
-choco install dotnet-sdk-8.0
-```
-
-### 2. Clonar e preparar
-```powershell
-cd d:\Projetos\Code\midi-sampler-csharp
-dotnet restore
-```
-
-### 3. Compilar
-```powershell
-dotnet build
-```
-
-### 4. Executar
-```powershell
-dotnet run
-```
-
-Ou execute o .exe gerado em `bin\Debug\net8.0-windows\MidiSampler.exe`
-
-## 💾 Dependências NuGet (instaladas automaticamente)
-
-- **Melanchall.DryWetMidi** 11.2.0 - MIDI input
-- **NAudio** 2.2.1 - Audio playback com device selection
-- **CommunityToolkit.MVVM** 8.2.1 - Architecture pattern
+1. **Clone o repositório**
+2. **Abra um terminal** na pasta do projeto.
+3. **Execute o comando:**
+   ```powershell
+   dotnet run
+   ```
+Opcionalmente, compile com `dotnet build` e execute o `.exe` gerado em `bin\Debug\net8.0-windows\MidiSampler.exe`.
 
 ## 🎮 Como Usar
 
-1. **Iniciar a aplicação** - Todas as portas MIDI são abertas automaticamente
-2. **Selecionar dispositivo de áudio** - Dropdown em "Dispositivo de Áudio"
-   - Selecione "Voicemeeter Banana" ou outro dispositivo desejado
-3. **Mapear notas MIDI**
-   - Pressione uma nota no seu controller MIDI
-   - Clique "Selecionar Arquivo" para escolher o áudio
-4. **Reproduzir**
-   - Pressione uma nota mapeada no controller
-   - O áudio será reproduzido no dispositivo selecionado
+A aplicação agora centraliza todas as operações na tela principal:
+
+1. **Selecione seus Dispositivos**
+   - **Áudio:** No dropdown "Dispositivo de Áudio", escolha para onde o som deve ser enviado (ex: seus fones de ouvido, ou uma entrada virtual do Voicemeeter).
+   - **MIDI:** No dropdown "Entrada MIDI", escolha seu controlador. Se você conectou o dispositivo depois de abrir o app, clique no botão **🔄** para atualizar a lista.
+
+2. **Adicione e Configure Pads**
+   - Clique no botão **➕ Adicionar Pad**. Uma nova linha aparecerá na lista.
+   - **Para mapear o áudio:** Clique em **Selecionar Áudio** na nova linha e escolha um arquivo de som (`.mp3`, `.wav`, etc.).
+   - **Para mapear o MIDI:** Clique em **Aprender MIDI**. O botão mudará para "Ouvindo...". Pressione a tecla ou botão desejado no seu controlador MIDI. A nota/CC será capturada automaticamente.
+
+3. **Reproduza!**
+   - Com os pads configurados, pressione as teclas/botões correspondentes no seu dispositivo MIDI para tocar os sons.
+
+4. **Remover um Pad**
+   - Clique no botão **Remover** na linha do pad que deseja apagar.
+
+## 🎤 Integração com Roteamento Virtual (Voicemeeter, etc.)
+
+Para enviar o áudio do `MidiSampler` para outra aplicação (como Discord, OBS, etc.), você precisa de um roteador de áudio virtual.
+
+**Exemplo com Voicemeeter Banana:**
+
+1. **No MidiSampler:**
+   - No dropdown "Dispositivo de Áudio", selecione uma das entradas virtuais do Voicemeeter, como `Voicemeeter Aux Input (VB-Audio...`.
+
+2. **No Voicemeeter:**
+   - O áudio do `MidiSampler` aparecerá no canal "AUX Input".
+   - Nesse canal, você pode processar o áudio e roteá-lo para onde precisar. Por exemplo, para enviar o som para outros apps, ative o botão **B1** ou **B2**. O dispositivo de gravação `Voicemeeter Output (B1)` ou `Voicemeeter Aux Output (B2)` funcionará como um microfone em outros aplicativos, transmitindo os sons do sampler.
 
 ## 📁 Estrutura do Projeto
 
 ```
 midi-sampler-csharp/
 ├── Models/
-│   └── DataModels.cs          # Classes de dados
+│   └── DataModels.cs          # Classes de dados (PadMapping, etc.)
 ├── Services/
-│   ├── MidiService.cs         # Gerenciamento MIDI
-│   ├── AudioService.cs        # Reprodução com device selection
-│   └── StorageService.cs      # Persistência JSON
+│   ├── MidiService.cs         # Gerenciamento de entrada MIDI
+│   ├── AudioService.cs        # Reprodução de áudio com WASAPI
+│   └── StorageService.cs      # Persistência em JSON
 ├── ViewModels/
-│   └── MainViewModel.cs       # MVVM ViewModel
-├── App.xaml                   # Configuração app
-├── App.xaml.cs
-├── MainWindow.xaml            # Interface WPF
-├── MainWindow.xaml.cs
-├── Program.cs                 # Entry point
-├── MidiSampler.csproj         # Project file
+│   └── MainViewModel.cs       # View-Model principal (lógica da UI)
+├── App.xaml                   # Configuração da aplicação
+├── MainWindow.xaml            # Interface principal da UI
+├── ...
 └── mappings.json              # Mapeamentos (criado automaticamente)
 ```
 
-## 🔧 Configurações
+## 💾 Dependências NuGet
 
-### Mudar dispositivo de áudio padrão
-
-No código (`Services/AudioService.cs`), o dispositivo é configurado via:
-```csharp
-_waveOutDevice.DeviceNumber = _selectedDeviceIndex;
-```
-
-Isso usa a API nativa do Windows (WASAPI) para seleção real de device.
-
-### Adicionar suporte a mais formatos
-
-Edite `Services/AudioService.cs` e aumente suporte a codecs:
-```csharp
-// Atualmente suporta: MP3, WAV, FLAC, OGG
-// Para ALAC, M4A, etc, adicione NuGet packages
-```
+- **NAudio** (incluindo `NAudio.Midi`): Biblioteca principal para toda a manipulação de áudio e MIDI.
+- **CommunityToolkit.MVVM**: Usada para implementar o padrão de arquitetura MVVM.
 
 ## 🐛 Troubleshooting
 
-### "Nenhum dispositivo MIDI encontrado"
-- Conecte seu controlador MIDI
-- Restart a aplicação
-- Verifique em Configurações > Sons do Windows
+### Nenhum dispositivo MIDI é listado
+- Verifique se seu controlador está conectado.
+- Clique no botão **🔄** para atualizar a lista de dispositivos MIDI.
+- Se for um controlador Bluetooth, verifique se o software conector (ex: Sinco Connector) está em execução.
 
-### Áudio não reproduz em Voicemeeter
-1. Abra Voicemeeter Banana
-2. Configure entrada (A1) para "Voicemeeter Aux Input"
-3. Selecione "VB-Audio Virtual Cable" ou "Voicemeeter Banana" no dropdown
-4. Teste reprodução
+### O áudio não toca
+- Verifique se um dispositivo de áudio válido está selecionado no `MidiSampler`.
+- Certifique-se de que o volume do dispositivo de saída não está no mudo.
+- Verifique se o arquivo de áudio mapeado ainda existe no caminho original.
 
-### "Cannot find NAudio"
-```powershell
-dotnet restore
-dotnet clean
-dotnet build
+--- 
+
+**Aplicação reconstruída para ser mais flexível, moderna e fácil de usar diretamente na tela principal.** 🎉
+
 ```
-
-## 📝 Notas de Desenvolvimento
-
-- A aplicação usa **DryWetMIDI** para input (mais robusto que play-sound)
-- **NAudio** é a melhor biblioteca C# para audio com device selection real
-- MVVM pattern para fácil extensão e testes
-- Persistência em JSON simples (pode ser migrado para SQL se necessário)
-
-## 🎓 Próximas Melhorias Possíveis
-
-- Banco de pads com múltiplas configurações
-- Visualizador de MIDI
-- Recording de sequências
-- Efeitos de áudio (volume, fade-in/out)
-- Suporte a VST plugins
-- Dark mode UI
-- Profiles salvos por projeto
-
-## 📄 Licença
-
-Desenvolvido para uso pessoal - adaptável para suas necessidades.
-
----
-
-**Esta é uma reescrita completa em C# WPF com suporte real a dispositivos de áudio do Windows!** 🎉

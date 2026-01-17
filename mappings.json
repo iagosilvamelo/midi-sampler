@@ -1,12 +1,27 @@
 [
   {
-    "Note": 52,
+    "Note": 28,
     "AudioPath": "D:\\MIDI Config\\Audios\\ai-que-delicia_Ol5sFUf.mp3",
     "IsLearning": false
   },
   {
-    "Note": 53,
+    "Note": 36,
     "AudioPath": "D:\\MIDI Config\\Audios\\ai-que-delicia-mickey.mp3",
+    "IsLearning": false
+  },
+  {
+    "Note": 44,
+    "AudioPath": "D:\\MIDI Config\\Audios\\luladrao-vai-entrar-o-grosso.mp3",
+    "IsLearning": false
+  },
+  {
+    "Note": 52,
+    "AudioPath": "D:\\MIDI Config\\Audios\\trabalha-nego_hmZM0iM.mp3",
+    "IsLearning": false
+  },
+  {
+    "Note": 53,
+    "AudioPath": "D:\\MIDI Config\\Audios\\seu-madruga-nossa-lento-47.mp3",
     "IsLearning": false
   }
 ]

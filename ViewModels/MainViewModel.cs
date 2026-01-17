@@ -126,7 +126,7 @@ public partial class MainViewModel : ObservableObject
     {
         if (value != null)
         {
-            _audioService.SetAudioDevice(value.Index, value.Name);
+            _audioService.SetAudioDevice(value.Id, value.Name);
             Debug.WriteLine($"🔊 Dispositivo selecionado: {value.Name}");
             StatusMessage = $"Dispositivo: {value.Name}";
         }
