@@ -1,0 +1,117 @@
+<Window x:Class="MidiSampler.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MIDI Sampler" Height="600" Width="800"
+        Background="#F0F0F0">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Background="#1E1E1E">
+            <TextBlock Text="🎹 MIDI Sampler" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,20,20,10"/>
+            <TextBlock Text="Controle seus áudios via MIDI" Foreground="#A0A0A0" FontSize="12" Margin="20,0,20,20"/>
+        </StackPanel>
+
+        <!-- Control Panel -->
+        <Border Grid.Row="1" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,1,0,1">
+            <Grid Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Audio Device Selection -->
+                <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0">
+                    <TextBlock Text="Dispositivo de Áudio:" FontWeight="Bold" Margin="0,0,0,8"/>
+                    <ComboBox ItemsSource="{Binding AudioDevices}" 
+                              SelectedItem="{Binding SelectedAudioDevice}"
+                              DisplayMemberPath="Name"/>
+                </StackPanel>
+
+                <!-- MIDI Input Selection -->
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="Entrada MIDI:" FontWeight="Bold" Margin="0,0,0,8"/>
+                    <ComboBox ItemsSource="{Binding MidiInputs}" 
+                              SelectedItem="{Binding SelectedMidiInput}"/>
+                </StackPanel>
+
+                <!-- Editor Button -->
+                <Button Grid.Column="2"
+                        Command="{Binding OpenPadEditorCommand}"
+                        Content="⚙️ Gerenciar Pads"
+                        VerticalAlignment="Center"
+                        Margin="10,0,0,0"/>
+            </Grid>
+        </Border>
+
+        <!-- Pad Mappings List -->
+        <Border Grid.Row="2" Background="White" Margin="20" CornerRadius="4" BorderBrush="#E0E0E0" BorderThickness="1">
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding PadMappings}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1">
+                                <Grid Margin="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="120"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Note Number -->
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="Nota" FontSize="11" Foreground="#666"/>
+                                        <TextBlock Text="{Binding Note}" FontSize="18" FontWeight="Bold" Foreground="#007ACC"/>
+                                    </StackPanel>
+
+                                    <!-- Audio File Path -->
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="20,0,0,0">
+                                        <TextBlock Text="{Binding AudioPath}" TextTrimming="CharacterEllipsis" 
+                                                   FontSize="12" Foreground="#333"/>
+                                    </StackPanel>
+
+                                    <!-- Remove Button -->
+                                    <Button Grid.Column="2" 
+                                            Command="{Binding DataContext.RemovePadMappingCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding Note}"
+                                            Content="Remover" 
+                                            Background="#D32F2F"
+                                            Foreground="White"
+                                            Margin="0"
+                                            FontSize="11"
+                                            HorizontalAlignment="Right"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="3" Background="#F0F0F0" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0">
+            <TextBlock Text="{Binding StatusMessage}" Foreground="#333" FontSize="12" Margin="20,12"/>
+        </Border>
+    </Grid>
+</Window>

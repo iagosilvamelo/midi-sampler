@@ -1,0 +1,15 @@
+D:\Projetos\Code\midi-sampler-csharp\publish\MidiSampler.exe
+D:\Projetos\Code\midi-sampler-csharp\publish\MidiSampler.dll
+D:\Projetos\Code\midi-sampler-csharp\publish\MidiSampler.deps.json
+D:\Projetos\Code\midi-sampler-csharp\publish\MidiSampler.runtimeconfig.json
+D:\Projetos\Code\midi-sampler-csharp\publish\MidiSampler.pdb
+D:\Projetos\Code\midi-sampler-csharp\publish\CommunityToolkit.Mvvm.dll
+D:\Projetos\Code\midi-sampler-csharp\publish\NAudio.dll
+D:\Projetos\Code\midi-sampler-csharp\publish\NAudio.Asio.dll
+D:\Projetos\Code\midi-sampler-csharp\publish\NAudio.Core.dll
+D:\Projetos\Code\midi-sampler-csharp\publish\NAudio.Midi.dll
+D:\Projetos\Code\midi-sampler-csharp\publish\NAudio.Vorbis.dll
+D:\Projetos\Code\midi-sampler-csharp\publish\NAudio.Wasapi.dll
+D:\Projetos\Code\midi-sampler-csharp\publish\NAudio.WinForms.dll
+D:\Projetos\Code\midi-sampler-csharp\publish\NAudio.WinMM.dll
+D:\Projetos\Code\midi-sampler-csharp\publish\NVorbis.dll
